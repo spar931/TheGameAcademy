@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "RAqCwee1lZ1OEIpzQsEiz3QtukuQnpUV6pSYlYWLMHrsla+htIrIKFVHqllTiQnkKlSTe4o/vFzHDIjBGRBI7w==",
+  "success": true,
+  "projectFilePath": "/home/spar931/GameAcademy/Backend/Backend.csproj",
+  "expectedPackageFiles": [
+    "/home/spar931/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/home/spar931/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/spar931/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/home/spar931/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/home/spar931/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/home/spar931/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
