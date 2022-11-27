@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<GameAcademyDBContext>(options => options.UseSqlite(builder.Configuration["WebAPIConnection"]));
+builder.Services.AddScoped<IGameAcademyRepo, GameAcademyRepo>();
 
 var app = builder.Build();
 
