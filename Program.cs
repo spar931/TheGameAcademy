@@ -22,7 +22,7 @@ builder.Services.AddScoped<IGameAcademyRepo, GameAcademyRepo>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireClaim("admin"));
-    options.AddPolicy("AuthOnly", policy => {
+    options.AddPolicy("RegisteredUserOnly", policy => {
         policy.RequireAssertion(context =>
             context.User.HasClaim(c =>
             (c.Type == "normalUser" || c.Type == "admin")));
