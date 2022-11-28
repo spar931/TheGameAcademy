@@ -29,7 +29,19 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+builder.Services.AddCors(o => o.AddPolicy("NUXT", builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
+
 var app = builder.Build();
+
+
+app.UseRouting();
+
+app.UseCors("NUXT");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
