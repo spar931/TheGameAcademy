@@ -7,7 +7,7 @@ namespace GameAcademy.Data
         // User methods
         Task<User> addUserAsync(User user);
         Task<IEnumerable<User>> GetUsersAsync();
-        Task<bool> ValidUserAsync(string userName, string password);
+        Task<bool> ValidUserAsync(string username, string password);
         Task<User?> GetUserByUserNameAsync(string e);
 
         // Game methods
@@ -23,6 +23,7 @@ namespace GameAcademy.Data
 
         // Product methods
         Task<IEnumerable<Product>> GetAllItemsAsync();
+        Task<Product?> GetProductById(string productId);
 
         // Save method
         Task SaveChangesAsync();

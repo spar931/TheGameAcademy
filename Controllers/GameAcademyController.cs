@@ -153,28 +153,18 @@ namespace GameAcademy.Controllers
         public async Task<ActionResult<string>> WriteCommentAsync(CommentIn comment)
         {
             Comment c = new Comment{UserComment = comment.userComment, Name = comment.Name};
+            c.Ip = Request.HttpContext.Connection.RemoteIpAddress!.ToString();
+            c.Time = DateTime.Now.ToString();
             Comment addedComment = await _repository.WriteCommentAsync(c);
-            addedComment.Time = DateTime.Now.ToString();
-            addedComment.Ip = Request.HttpContext.Connection.RemoteIpAddress!.ToString();
             await _repository.SaveChangesAsync();
             return addedComment.UserComment;
         }   
 
         [HttpGet("GetComments")]
-        public async Task<ActionResult<List<CommentIn>>> GetCommentsAsync()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsAsync()
         {
             IEnumerable<Comment> Comments = await _repository.GetCommentsAsync();
-            IEnumerable<CommentIn> comments = Comments.Select(e => new CommentIn{userComment = e.UserComment, Name = e.Name});
-            List<CommentIn> LastFive = new List<CommentIn>();
-            int counter = 0;
-            foreach (CommentIn c in comments.Reverse()) 
-            {
-                if (c != null && counter < 5) {
-                    LastFive.Add(c);
-                    counter++;
-                }
-            }
-            return Ok(LastFive);
+            return Ok(Comments.Reverse());
         }   
 
 

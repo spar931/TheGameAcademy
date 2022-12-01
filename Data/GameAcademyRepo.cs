@@ -35,11 +35,12 @@ namespace GameAcademy.Data
             else
                 return true;
         }
-        public async Task<User?> GetUserByUserNameAsync(string e)
+        public async Task<User?> GetUserByUserNameAsync(string username)
         {
-            User? user = await _dbContext.Users.FirstOrDefaultAsync(o => o.userName == e);
+            User? user = await _dbContext.Users.FirstOrDefaultAsync(e => e.userName == username);
             return user;
         }
+        
 
         // Game methods
         public async Task<GameRecord> addRecordAsync(GameRecord gameRecord)
@@ -96,6 +97,11 @@ namespace GameAcademy.Data
         {
             IEnumerable<Product> products = await _dbContext.Products.ToListAsync<Product>(); 
             return products;
+        }
+        public async Task<Product?> GetProductById(string productId)
+        {
+            Product? product = await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == productId);
+            return product;
         }
 
         // Save method
