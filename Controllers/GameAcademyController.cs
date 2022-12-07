@@ -177,24 +177,24 @@ namespace GameAcademy.Controllers
         public async Task<ActionResult<GameRecordOut>> PairMeAsync()
         {
             User? user = await GetLoggedUserAsync();
-            GameRecord? existingGame = null;
-            GameRecord? playerInGame = null;
+            GameRecord? existingWaitGame = null;
+            GameRecord? playerInProgressGame = null;
 
             GameRecordOut? go = null;
 
             if (user != null) {
-                existingGame = await _repository.PlayerWaitingAsync();
-                playerInGame = await _repository.PlayerInGame(user);
+                existingWaitGame = await _repository.PlayerWaitingAsync();
+                playerInProgressGame = await _repository.PlayerInGame(user);
             }
-            if (playerInGame == null) {
-                if (existingGame != null) {
-                    if (user!.userName != existingGame.player1) {
+            if (playerInProgressGame == null) {
+                if (existingWaitGame != null) {
+                    if (user!.userName != existingWaitGame.player1) {
                         // join existing game as player 2
-                        existingGame.player2 = user.userName;
-                        existingGame.state = "progress";
+                        existingWaitGame.player2 = user.userName;
+                        existingWaitGame.state = "progress";
                         await _repository.SaveChangesAsync();
-                        go = new GameRecordOut {player1 = existingGame.player1, state = existingGame.state, player2 = existingGame.player2, 
-                            lastMovePlayer1 = existingGame.lastMovePlayer1, lastMovePlayer2 = existingGame.lastMovePlayer2, gameID = System.Guid.NewGuid().ToString()};
+                        go = new GameRecordOut {player1 = existingWaitGame.player1, state = existingWaitGame.state, player2 = existingWaitGame.player2, 
+                            lastMovePlayer1 = existingWaitGame.lastMovePlayer1, lastMovePlayer2 = existingWaitGame.lastMovePlayer2, gameID = System.Guid.NewGuid().ToString()};
                         return Ok(go);
                     } 
                 } else {
@@ -207,6 +207,8 @@ namespace GameAcademy.Controllers
                     go = new GameRecordOut {player1 = g.player1, state = g.state, player2 = g.player2, 
                         lastMovePlayer1 = g.lastMovePlayer1, lastMovePlayer2 = g.lastMovePlayer2, gameID = g.gameID};
                 }
+            } else {
+                return Ok(playerInProgressGame);
             }
             return Ok(go);
         }
