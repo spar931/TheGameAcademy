@@ -15,6 +15,7 @@ namespace GameAcademy.Data
         Task<GameRecord?> GetGameRecordByGameIdAsync(string gameId);
         Task<GameRecord?> GetGameRecordByUsernameAsync(string username); 
         Task<GameRecord?> PlayerWaitingAsync();
+        Task<GameRecord?> PlayerInGame(User user);
         Task<bool> DeleteGameRecordAsync(string gameId);
         
         // Comment methods

@@ -66,6 +66,12 @@ namespace GameAcademy.Data
             GameRecord? gameRecord = await _dbContext.GameRecords.FirstOrDefaultAsync(e => e.state == "wait");
             return gameRecord;
         }
+        public async Task<GameRecord?> PlayerInGame(User user)
+        {
+            GameRecord? gameRecord = await _dbContext.GameRecords.FirstOrDefaultAsync(e => e.state == "progress" && (e.player1 != user.userName || 
+            e.player2 != user.userName));
+            return gameRecord;
+        }
         public async Task<bool> DeleteGameRecordAsync(string gameId) 
         {
             GameRecord? gameRecord = await _dbContext.GameRecords.FirstOrDefaultAsync(e => e.gameID == gameId);
