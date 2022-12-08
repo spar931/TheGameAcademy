@@ -1,0 +1,233 @@
+<html>
+    <head>
+        <title id="header">The Game Academy</title>
+        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, 
+        user-scalable=no, target-densitydpi=device-dpi">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <script defer="true" src="GameAcademy.js"></script>
+        <link rel ="stylesheet" href="GameAcademy.css">
+
+        <link rel="icon" href="https://localhost:5000/api/GetFavIcon">
+        <img id="logoImg" src="https://localhost:5000/api/GetLogo" onclick="ourHome()">
+        <h1>The Game Academy</h1>
+        <h4 id="login-status">Register and Login to fully enjoy our website</h4>
+        <div id="bag-button"><i class="bi bi-bag fa-4x" onclick="ourBag()"></i></div>
+
+        <div class="topnav">
+            <ul>
+                <li><a class="notEnabled" id="home-button" onclick="ourHome()">Home</a></li>
+                <li><a class="notEnabled" id="shop-button" onclick="ourShop()">Shop</a></li>
+                <li><a class="notEnabled" id="play-button" onclick="ourPlay()">Play Chess</a></li>
+                <li><a class="notEnabled" id="guest-button" onclick="ourGuest()">Guest Book</a></li>
+                <li><a class="notEnabled" id="register-button" onclick="ourRegister()">Register</a></li>
+                <li><a class="notEnabled" id="login-button" style="display: block" onclick="ourLogin()">Login</a></li>
+                <li><a class="notEnabled" id="logout-button" style="display: none" onclick="ourLogout()">Logout</a></li>
+            </ul>
+        </div>
+    </head>
+
+    <body>
+        <div id="home"></div>
+
+        <div style="display: none" id="shop">
+            <i class="fa fa-magnifying-glass fa-2xl" ></i>&nbsp&nbsp&nbsp<input type="text" id="search" onkeyup="search()" placeholder="Search for products..">
+            <table id="ourtable"></table>
+        </div>
+
+        <div style="display: none" id="play">
+                <table class="chessBoard">
+                    <tbody>
+                        <tr>
+                            <th class="temp" ondrop="mydrop(event)" ondragover="mydragover(event)"></th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>c</th>
+                            <th>d</th>
+                            <th>e</th>
+                            <th>f</th>
+                            <th>g</th>
+                            <th>h</th>
+                            <th><img src="https://cws.auckland.ac.nz/gas/images/Bin.svg" ondrop="mydrop(event)" ondragover="mydragover(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>8</th>
+                            <td id="1" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="1a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Rb.svg"></td>
+                            <td id="2" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="2a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Nb.svg"></td>
+                            <td id="3" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="3a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Bb.svg"></td>
+                            <td id="4" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="4a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Qb.svg"></td>
+                            <td id="5" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="5a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Kb.svg"></td>
+                            <td id="6" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="6a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Bb.svg"></td>
+                            <td id="7" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="7a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Nb.svg"></td>
+                            <td id="8" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="8a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Rb.svg"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="h" src="https://cws.auckland.ac.nz/gas/images/Qb.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>7</th>
+                            <td id="9" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="9a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="10" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="10a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="11" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="11a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="12" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="12a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="13" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="13a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="14" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="14a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="15" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="15a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <td id="16" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="16a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pb.svg"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="g" src="https://cws.auckland.ac.nz/gas/images/Qb.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>6</th>
+                            <td id="17" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="18" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="19" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="20" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="21" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="22" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="23" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="24" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="f" src="https://cws.auckland.ac.nz/gas/images/Qb.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>5</th>
+                            <td id="25" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="26" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="27" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="28" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="29" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="30" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="31" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="32" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="e" src="https://cws.auckland.ac.nz/gas/images/Qb.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td id="33" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="34" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="35" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="36" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="37" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="38" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="39" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="40" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="d" src="https://cws.auckland.ac.nz/gas/images/Qw.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td id="41" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="42" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="43" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="44" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="45" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="46" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="47" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <td id="48" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="c" src="https://cws.auckland.ac.nz/gas/images/Qw.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td id="49" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="17a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="50" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="18a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="51" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="19a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="52" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="20a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="53" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="21a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="54" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="22a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="55" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="23a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <td id="56" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="24a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Pw.svg"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="b" src="https://cws.auckland.ac.nz/gas/images/Qw.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td id="57" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="25a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Rw.svg"></td>
+                            <td id="58" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="26a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Nw.svg"></td>
+                            <td id="59" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="27a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Bw.svg"></td>
+                            <td id="60" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="28a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Qw.svg"></td>
+                            <td id="61" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="29a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Kw.svg"></td>
+                            <td id="62" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="30a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Bw.svg"></td>
+                            <td id="63" class="blue" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="31a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Nw.svg"></td>
+                            <td id="64" class="white" ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="32a" ondragstart="mydragstart(event)" src="https://cws.auckland.ac.nz/gas/images/Rw.svg"></td>
+                            <th ondrop="mydrop(event)" ondragover="mydragover(event)"><img id="a" src="https://cws.auckland.ac.nz/gas/images/Qw.svg" ondragstart="mydragstart(event)"></th>
+                        </tr>
+                        <tr>
+                            <th><img src="https://cws.auckland.ac.nz/gas/images/Bin.svg" ondrop="mydrop(event)" ondragover="mydragover(event)"></th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>c</th>
+                            <th>d</th>
+                            <th>e</th>
+                            <th>f</th>
+                            <th>g</th>
+                            <th>h</th>
+                            <th class="temp" ondrop="mydrop(event)" ondragover="mydragover(event)"></th>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Rules: </h4>
+                <p>To capture a piece of the opponent, move the piece to one of the bins (in the top-right or bottom-left), and move your piece to where the opponent's piece was.
+                    A piece moved to a bin cannot be recovered.<br>
+                    <br>
+                    To swap two pieces (e.g. as in castling), move one piece to the temporary hold (in the top-left or bottom-right), move the second piece to where the first piece
+                    was, and finally move the piece from the temporary hold to where the second piece was.<br>
+                    <br>
+                </p>
+                <button id="sendMove" class="chess-button" style="display: none" type="button" value="SendMove" onclick="SendMove()">Send My Move</button>
+                <button id="getmove" class="chess-button" style="display: none" type="button" value="GetTheirMove" onclick="GetTheirMove()">Get Their Move</button>
+                <button id="start" class="chess-button" style="display: block" type="button" value="TryGame" onclick="PairUp()">Try Game</button>
+                <p id="startText" style="display: block">To start 'Try Game'.</p>
+                <p id="status" style="display: none"></p>
+                <button id="quit" class="chess-button" style="display: none" type="button" value="Quit" onclick="QuitGame()">Quit Game</button>
+        </div>
+
+        <div style="display: none" id="guest">
+            <h4>Please sign our guest book.</h4>
+            <p>All comments are game, but please be respectful</p>
+            <textarea id="comment-text" name="comment" form="usrform" style="width: 100%; max-width: 100%; height: 10%;">Enter comment here...</textarea>
+            <button type="button" id="post-comment" onclick="postComment()">Post</button>
+            <p id="comment-msg"></p>
+            <h5>Other guest comments: </h5>
+            <iframe id="guest-comments" width="100%" height="300"></iframe>
+        </div>
+
+        <form id="register-form">
+            <div style="display: none" class="container" id="register">
+                <h1><u> Register </u></h1> 
+                <label>Username : </label>   
+                <input type="username" class="register-form-field" placeholder="Enter Username" name="username" required>  
+                <label>Password : </label>   
+                <input type="password" class="register-form-field" placeholder="Enter Password" name="password" required>  
+                <label>Email : </label>   
+                <input type="email" class="register-form-field" placeholder="Enter Email" name="email" required>  
+                <p id="register-msg"></p>
+                <button type="button" id="register-submit" onclick="Register()">Register</button> 
+            </div>
+        </form>     
+
+        <form id="login-form">
+            <div style="display: none" class="container" id="login">
+                <h1><u> Login </u></h1> 
+                <label>Username : </label>   
+                <input type="username" class="login-form-field" placeholder="Enter Username" name="username" required>  
+                <label>Password : </label>   
+                <input type="password" class="login-form-field" placeholder="Enter Password" name="password" required>   
+                <p id="login-msg"></p>
+                <button type="button" id="login-submit" onclick="Login()" >Login</button> 
+            </div>
+        </form>  
+
+        <div id="product-popup">
+            <div id="product-info">
+                <div id="product-header"></div>
+                <div id="product-body"></div>   
+            </div>
+        </div>
+
+        <div id="bag">
+            <h1 id="bag-title"></h1>
+            <table id="bag-table"></table>
+        </div>
+
+    </body>
+
+    <footer>
+        <p id="version">Version: </p>
+    </footer>
+    
+</html>

@@ -1,1 +1,309 @@
+html, body, head {
+    max-width: 100%;
+    margin: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: brown;
+    background-color: white;
+    text-align: center;
+}
+
+footer {
+    color: white;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:25px;   
+    background:burlywood;
+    line-height: 1px;
+    text-align: center;
+}
+  
+form {   
+    margin: auto;
+    width: 30%;
+    color: burlywood;
+}  
+
+button {   
+    background-color: burlywood;   
+    width: 100%;  
+    color: brown;   
+    padding: 15px;   
+    margin: 10px 0px;   
+    border: none;   
+    cursor: pointer;   
+}   
+
+button:hover {   
+    opacity: 0.7;   
+}    
+
+#logoImg {
+    width:150px;
+    height:150px;
+    cursor: pointer;
+}
+
+#bag-button {
+    position: relative;
+    margin-top: -50px;
+    top: -50px;
+    left: 40%;
+    cursor: pointer;
+    color: burlywood;
+}
+  
+#chessImg {
+    width: 50%;
+    height: 50%;
+}
+
+
+/* top navigation bar */
+.topnav {
+    background-color: burlywood;;
+    width: 100%;
+}
+
+.topnav ul{
+    display: inline-flex;
+    list-style-type: none;
+}
+  
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: brown;
+}
+  
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.enabled {
+    background-color: none;
+    font-weight: 900;
+    color: brown !important;
+}
+  
+
+/* register/login */
+#register-form {
+    padding-top: 2%;
+}
+
+input[type=username], input[type=password], input[type=email] {   
+    width: 100%;   
+    margin: 8px 0;  
+    padding: 12px 10px;   
+    display: inline-block;   
+    border: 2px solid burlywood;   
+    box-sizing: border-box;   
+}  
+
+.container {   
+    padding: 25px;   
+    background-color: rgb(121, 63, 10);  
+}   
+
+
+/* guest book */
+#guest {
+    margin: auto;
+    width: 30%;
+    color: brown;
+}
+
+#guest textarea {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+input[type=commentName] {
+    width: 100%;
+    height: 3%;
+    font-family: 'Courier New', Courier, monospace;
+}
+  
+
+  
+/* shop */
+#shop {
+    padding: 30px;
+    width: 100%;
+}
+
+#search {
+    width: 30%;
+    font-size: large;
+    border: none;
+    border-bottom: 2px solid;
+    height: 3%;
+}
+
+#search:focus {
+    outline: none;
+}
+
+#ourtable {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+#ourtable td {
+    display: inline-block;
+    padding: 50px;
+}
+
+.products {
+    height: 300px;
+    width: 300px;
+    cursor: pointer;
+}
+      
+
+/* play chess */
+#play {
+    padding: 15px;
+    margin: auto;
+}
+
+.chessBoard {
+    border-spacing: 0; border-collapse: collapse; 
+    display: inline-block;
+    color: burlywood;
+}
+  
+.chessBoard th {
+    padding: .5em; 
+    background-color: white; 
+    width: 2.5em; height: 2.5em; 
+    border: 1px solid brown;
+}
+  
+.chessBoard td { 
+    border: 1px solid; 
+    width: 2.5em; height: 2.5em; 
+}
+  
+.chessBoard .white { 
+    background: rgb(233, 205, 168); 
+}
+  
+.chessBoard .blue { 
+    background: rgb(97, 63, 13); 
+}
+  
+.chessBoard .temp { 
+    border: 2px dotted brown;
+}
+
+.chess-button {
+    width: 5%;
+    margin: auto;
+}
+
+
+/* product modal pop-up */
+#product-popup {
+    display: none; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%; 
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
+
+#product-info {
+    padding: 20px;
+    background-color: white;
+    margin: 1% auto;
+    width: 50%;
+    overflow-y: initial !important;
+}
+  
+#product-header {
+    padding: 1px;
+    background-color: burlywood;
+    color: white;
+}
+  
+#product-body {
+    padding: 10px;
+    overflow-y: auto;
+    height: 80%;
+}
+
+.imgPopUp {
+    height: 70%;
+    width: 70%;
+}
+
+.popupTable td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+#add-to-bag {
+    width: 20%;
+}
+
+input[type=number] {
+    width: 5%;
+    height: 5.8%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Bag */
+#bag {
+    width: 100%;
+}
+
+#bag-table {
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+#bag-table td {
+    padding: 12px 15px;
+    border: 1.5px solid brown;
+}
+
+.bag-items {
+    width: 60%;
+    height: 60%;
+}
+
+#bag-quantity {
+    width: 30%;
+    height: 20%;
+    font-size: 20px;
+}
+
+#remove-item {
+    width: 55.5%;
+}
+
+/* Comments */
+#guest-comments {
+    border:1px solid brown;
+}
