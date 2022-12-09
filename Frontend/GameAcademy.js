@@ -23,7 +23,7 @@ const ourHome= () => {
     sessionStorage.setItem("currentPage", "home");
     document.getElementById("home").innerHTML = `<p>
     Welcome to The Game Academy - the number 1 premium chess website.<br>
-    Get started by taking a few seconds to get registered and logged in to enjoy access to our shop of exclusive chess products,
+    Get started by taking a few seconds to get registered and logged in to purchase our exclusive chess products,
     playing chess against other real players in real-time and before you leave, please leave a comment in our guest book.
     </p>
     <img id='chessImg' src='chess2.jpeg'/>`
@@ -421,6 +421,7 @@ const QuitGame = () => {
 
 const mydragstart = (ev) => {
     ev.dataTransfer.setData("text/plain", ev.target.id);
+    alert(ev.target.parentElement.id);
 }
 
 const mydragover = (ev) => {
@@ -432,6 +433,7 @@ const mydrop = (ev) => {
         const data = ev.dataTransfer.getData("text/plain");
         ev.target.appendChild(document.getElementById(data));
         sessionStorage.setItem('move', "yes");
+        alert(document.getElementById(data).parentElement.id);
     }
 }
 

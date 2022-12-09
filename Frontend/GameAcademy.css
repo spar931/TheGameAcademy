@@ -1,8 +1,8 @@
 html, body, head {
-    max-width: 100%;
-    margin: auto;
     overflow-x: hidden;
     height: 100%;
+    max-width: 100%;
+    margin: auto;
 }
 
 body {
@@ -12,6 +12,7 @@ body {
     text-align: center;
 }
 
+
 footer {
     color: white;
     position:fixed;
@@ -20,7 +21,6 @@ footer {
     height:25px;   
     background:burlywood;
     line-height: 1px;
-    text-align: center;
 }
   
 form {   
@@ -66,22 +66,30 @@ button:hover {
 
 /* top navigation bar */
 .topnav {
+    position: relative;
     background-color: burlywood;;
     width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.topnav li{
+    display: inline-block;
 }
 
 .topnav ul{
-    display: inline-flex;
+    display: inline-block;
     list-style-type: none;
+    padding: 0;
+    text-align: center;
 }
   
 .topnav a {
-    float: left;
     color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
+    padding: 10px;
     text-decoration: none;
     font-size: 17px;
+    text-align: center;
 }
 
 .topnav a:hover {
@@ -108,7 +116,7 @@ button:hover {
 
 input[type=username], input[type=password], input[type=email] {   
     width: 100%;   
-    margin: 8px 0;  
+    margin: 8px;  
     padding: 12px 10px;   
     display: inline-block;   
     border: 2px solid burlywood;   
@@ -191,13 +199,13 @@ input[type=commentName] {
 .chessBoard th {
     padding: .5em; 
     background-color: white; 
-    width: 2.5em; height: 2.5em; 
+    width: 3em; height: 2.5em; 
     border: 1px solid brown;
 }
   
 .chessBoard td { 
     border: 1px solid; 
-    width: 2.5em; height: 2.5em; 
+    width: 3em; height: 2.5em; 
 }
   
 .chessBoard .white { 

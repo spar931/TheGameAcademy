@@ -1,14 +1,16 @@
 <html>
     <head>
         <title id="header">The Game Academy</title>
+        <script defer="true" src="GameAcademy.js"></script>
+        <link rel ="stylesheet" href="GameAcademy.css">
         <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, 
         user-scalable=no, target-densitydpi=device-dpi">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-        <script defer="true" src="GameAcademy.js"></script>
-        <link rel ="stylesheet" href="GameAcademy.css">
-
         <link rel="icon" href="https://localhost:5000/api/GetFavIcon">
+    </head>
+    
+    <body>
         <img id="logoImg" src="https://localhost:5000/api/GetLogo" onclick="ourHome()">
         <h1>The Game Academy</h1>
         <h4 id="login-status">Register and Login to fully enjoy our website</h4>
@@ -25,9 +27,7 @@
                 <li><a class="notEnabled" id="logout-button" style="display: none" onclick="ourLogout()">Logout</a></li>
             </ul>
         </div>
-    </head>
 
-    <body>
         <div id="home"></div>
 
         <div style="display: none" id="shop">
