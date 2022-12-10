@@ -177,40 +177,35 @@ namespace GameAcademy.Controllers
         public async Task<ActionResult<GameRecordOut>> PairMeAsync()
         {
             User? user = await GetLoggedUserAsync();
-            GameRecord? existingWaitGame = null;
-            GameRecord? playerInProgressGame = null;
+            GameRecord? playerGame = await _repository.PlayerGameStatus(user);
 
-            GameRecordOut? go = null;
+            GameRecordOut? gameOut;
 
-            if (user != null) {
-                existingWaitGame = await _repository.PlayerWaitingAsync();
-                playerInProgressGame = await _repository.PlayerInGame(user);
-            }
-            if (playerInProgressGame == null) {
-                if (existingWaitGame != null) {
-                    if (user!.userName != existingWaitGame.player1) {
-                        // join existing game as player 2
-                        existingWaitGame.player2 = user.userName;
-                        existingWaitGame.state = "progress";
-                        await _repository.SaveChangesAsync();
-                        go = new GameRecordOut {player1 = existingWaitGame.player1, state = existingWaitGame.state, player2 = existingWaitGame.player2, 
-                            lastMovePlayer1 = existingWaitGame.lastMovePlayer1, lastMovePlayer2 = existingWaitGame.lastMovePlayer2, gameID = System.Guid.NewGuid().ToString()};
-                        return Ok(go);
-                    } 
-                } else {
-                    // create a new game as player 1 if no existing game with wait state 
+            if (playerGame == null) {
+                GameRecord? WaitingGame = await _repository.FindWaitGame();
+                if (WaitingGame == null) {
+                    // create a new game as player 1 if no existing game with wait status 
                     GameRecord g = new GameRecord {player1 = user!.userName, state = "wait", player2 = null, 
                         lastMovePlayer1 = null, lastMovePlayer2 = null, gameID = System.Guid.NewGuid().ToString()};
 
                     await _repository.addRecordAsync(g);
                     
-                    go = new GameRecordOut {player1 = g.player1, state = g.state, player2 = g.player2, 
+                    gameOut = new GameRecordOut {player1 = g.player1, state = g.state, player2 = g.player2, 
                         lastMovePlayer1 = g.lastMovePlayer1, lastMovePlayer2 = g.lastMovePlayer2, gameID = g.gameID};
+                } else {   
+                    // join existing game with wait status as player 2
+                    WaitingGame.player2 = user.userName;
+                    WaitingGame.state = "progress";
+                    await _repository.SaveChangesAsync();
+                    gameOut = new GameRecordOut {player1 = WaitingGame.player1, state = WaitingGame.state, player2 = WaitingGame.player2, 
+                        lastMovePlayer1 = WaitingGame.lastMovePlayer1, lastMovePlayer2 = WaitingGame.lastMovePlayer2, gameID = WaitingGame.gameID};
                 }
             } else {
-                return Ok(playerInProgressGame);
+                gameOut = new GameRecordOut {player1 = playerGame.player1, state = playerGame.state, player2 = playerGame.player2, 
+                    lastMovePlayer1 = playerGame.lastMovePlayer1, lastMovePlayer2 = playerGame.lastMovePlayer2, gameID = playerGame.gameID};
             }
-            return Ok(existingWaitGame);
+
+            return Ok(gameOut);
         }
 
         [Authorize(AuthenticationSchemes = "Authentication")]
