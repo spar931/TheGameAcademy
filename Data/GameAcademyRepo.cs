@@ -77,7 +77,7 @@ namespace GameAcademy.Data
             GameRecord? gameRecord = await _dbContext.GameRecords.FirstOrDefaultAsync(e => e.gameID == gameId);
             if (gameRecord == null)
                 return false;
-            _dbContext.Remove(gameRecord);
+            _dbContext.GameRecords.Remove(gameRecord);
             await SaveChangesAsync();
             return true;
         }
