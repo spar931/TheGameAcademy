@@ -199,13 +199,13 @@ input[type=commentName] {
 .chessBoard th {
     padding: .5em; 
     background-color: white; 
-    width: 3em; height: 2.5em; 
+    width: 2.5em; height: 2.5em; 
     border: 1px solid brown;
 }
   
 .chessBoard td { 
     border: 1px solid; 
-    width: 3em; height: 2.5em; 
+    width: 2.5em; height: 2.5em; 
 }
   
 .chessBoard .white { 

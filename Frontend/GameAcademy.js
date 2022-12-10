@@ -306,35 +306,32 @@ const PairUp = () => {
         const streamPromise = fetchPromise.then((response) => response.json());
         streamPromise.then((data) => update(data));
         const update = (info) => {
-            if (info !== null) {
-                sessionStorage.setItem('id', info.gameId);
-                if (info.state == "wait") {
-                    document.getElementById("quit").style.display = 'block';
-                    document.getElementById("startText").innerText = `Wait for another player to join. 
-                    Check 'Try Game' intermittently to see if someone paired up with you. Please do not spam.`;
+            sessionStorage.setItem('id', info.gameID);
+            if (info.state == "wait") {
+                document.getElementById("quit").style.display = 'block';
+                document.getElementById("startText").innerText = `Wait for another player to join. 
+                Check 'Try Game' intermittently to see if someone paired up with you. Please do not spam.`;
+            } else {
+                let opponent;
+                let color;
+                if (sessionStorage.getItem('username') == info.player1) {
+                    color = "white";
+                    opponent = info.player2;
                 } else {
-                    let opponent;
-                    let color;
-                    if (sessionStorage.getItem('username') == info.player1) {
-                        color = "white";
-                        opponent = info.player2;
-                    } else {
-                        color = "black";
-                        opponent = info.player1;
-                    }
-                    if (color == "white") {
-                        document.getElementById("sendMove").style.display = 'block';
-                        document.getElementById("startText").innerText = `Great ${sessionStorage.getItem('username')}, 
-                        you are playing with ${opponent}. Your pieces are ${color} and the first turn is yours. Good luck!`;
-                    } else {
-                        document.getElementById("getmove").style.display = 'block';
-                        document.getElementById("startText").innerText = `Great ${sessionStorage.getItem('username')}, 
-                        you are playing with ${opponent}. Your pieces are ${color} and you are going second. Good luck!`;
-                    }
-                    document.getElementById("quit").style.display = 'block';
-                    document.getElementById("start").style.display = 'none';
-
+                    color = "black";
+                    opponent = info.player1;
                 }
+                if (color == "white") {
+                    document.getElementById("sendMove").style.display = 'block';
+                    document.getElementById("startText").innerText = `Great ${sessionStorage.getItem('username')}, 
+                    you are playing with ${opponent}. Your pieces are ${color} and the first turn is yours. Good luck!`;
+                } else {
+                    document.getElementById("getmove").style.display = 'block';
+                    document.getElementById("startText").innerText = `Great ${sessionStorage.getItem('username')}, 
+                    you are playing with ${opponent}. Your pieces are ${color} and you are going second. Good luck!`;
+                }
+                document.getElementById("quit").style.display = 'block';
+                document.getElementById("start").style.display = 'none';
             }
         }
     } else {
@@ -346,7 +343,7 @@ const GetTheirMove = () => {
     if (window.sessionStorage.getItem("username") !== null) {
         const userName = sessionStorage.getItem('username');
         const password = sessionStorage.getItem('password');
-        const fetchPromise = fetch('https://localhost:5000/api/TheirMove' + "/" + sessionStorage.getItem('id'),
+        const fetchPromise = fetch('https://localhost:5000/api/TheirMove/' + sessionStorage.getItem('id'),
         {
             method : "GET",
             headers : {
@@ -357,12 +354,20 @@ const GetTheirMove = () => {
         const streamPromise = fetchPromise.then((response) => response.text());
         streamPromise.then((data) => checkMove(data));
         const checkMove = (move) => {
-            if (move == "" || move == null) {
+            if (move == "Your opponent has not moved yet") {
                 document.getElementById("status").style.display = 'block';
                 document.getElementById("status").innerText = "Waiting for opponent's move";
             } else {
                 document.getElementById("sendMove").style.display = 'block';
                 document.getElementById("getmove").style.display = 'none';
+
+                const chessIds = move.split(':');
+                const prevPosition = chessIds[0];
+                const curPosition = chessIds[1];
+                const chessPiece = chessIds[2];
+                
+                document.getElementById(curPosition).innerHTML = document.getElementById(chessPiece).outerHTML;
+                document.getElementById(prevPosition).innerHTML = "";
             }
         }
     } else {
@@ -383,18 +388,15 @@ const SendMove = () => {
             },
             body: JSON.stringify({
                 gameId : sessionStorage.getItem('id'),
-                move : "move chess piece"
+                move : `${sessionStorage.getItem('prevPosition')}:${sessionStorage.getItem('curPosition')}:${sessionStorage.getItem('chessPiece')}`
             })
         })
         const streamPromise = fetchPromise.then((response) => response.text());
         streamPromise.then((data) => {
-            if (sessionStorage.getItem('move') === "yes") {
                 document.getElementById("getmove").style.display = 'block';
                 document.getElementById("sendMove").style.display = 'none';
-                sessionStorage.setItem('move', "no");
-            } else {
-                alert("you have not made your move!");
-            };
+                // sessionStorage.setItem('checkMove', "no");
+ 
         })
     } else {
         ourLogin();
@@ -405,7 +407,7 @@ const QuitGame = () => {
     if (window.sessionStorage.getItem("username") !== null) {
         const userName = sessionStorage.getItem('username');
         const password = sessionStorage.getItem('password');
-        const fetchPromise = fetch('https://localhost:5000/api/QuitGame' + "/"  + sessionStorage.getItem('id'),
+        const fetchPromise = fetch('https://localhost:5000/api/QuitGame/' + sessionStorage.getItem('id'),
         {
             method : "GET",
             headers : {
@@ -413,7 +415,9 @@ const QuitGame = () => {
                 "Accept" : "text/plain",
             },
         });
-        window.location.reload();
+        sessionStorage.removeItem('id');
+        const streamPromise = fetchPromise.then((response) => response.text());
+        streamPromise.then((data) => alert(data));
     } else {
         ourLogin();
     }
@@ -421,7 +425,8 @@ const QuitGame = () => {
 
 const mydragstart = (ev) => {
     ev.dataTransfer.setData("text/plain", ev.target.id);
-    alert(ev.target.parentElement.id);
+    sessionStorage.setItem('prevPosition', ev.target.parentElement.id);
+    sessionStorage.setItem('chessPiece', ev.target.id);
 }
 
 const mydragover = (ev) => {
@@ -432,11 +437,21 @@ const mydrop = (ev) => {
     if (ev.dataTransfer !== null) {
         const data = ev.dataTransfer.getData("text/plain");
         ev.target.appendChild(document.getElementById(data));
-        sessionStorage.setItem('move', "yes");
-        alert(document.getElementById(data).parentElement.id);
+        // sessionStorage.setItem('checkMove', "yes");
+        sessionStorage.setItem('curPosition', document.getElementById(data).parentElement.id)
     }
 }
 
+// maintain version number on footer
+const fetchPromise = fetch('https://localhost:5000/api/GetVersion',
+{
+    method: "GET",
+    headers : {
+        "Accept" : "text/plain",
+    },
+});
+const streamPromise = fetchPromise.then((response) => response.text() );
+streamPromise.then( (data) => document.getElementById("version").innerText = "Version: " + data);
 
 // persist bag fill on page refresh
 const bagStatus = () => {
@@ -454,6 +469,7 @@ const loginStatus = () => {
         document.getElementById("login-button").style.display = 'none';
     } 
 }
+
  // persist current page after page refresh
 const currentPage = () => {
     if (sessionStorage.getItem("currentPage") === "register") {
@@ -473,20 +489,14 @@ const currentPage = () => {
     }
 }
 
-// maintain version number on footer
-const version = () => {
-    const fetchPromise = fetch('https://localhost:5000/api/GetVersion',
-    {
-        method: "GET",
-        headers : {
-            "Accept" : "text/plain",
-        },
-    });
-    const streamPromise = fetchPromise.then((response) => response.text() );
-    streamPromise.then( (data) => document.getElementById("version").innerText = "Version: " + data);
+// delete game record on refresh
+const QuitChessOnRefresh = () => {
+    if (sessionStorage.getItem("id") !== null) {
+        QuitGame();
+    } 
 }
 
-version();
+QuitChessOnRefresh();
 currentPage();
 loginStatus();
 bagStatus();
