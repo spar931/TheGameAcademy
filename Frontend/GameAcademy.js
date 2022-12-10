@@ -365,7 +365,7 @@ const GetTheirMove = () => {
                 const prevPosition = chessIds[0];
                 const curPosition = chessIds[1];
                 const chessPiece = chessIds[2];
-                
+
                 document.getElementById(curPosition).innerHTML = document.getElementById(chessPiece).outerHTML;
                 document.getElementById(prevPosition).innerHTML = "";
             }
@@ -393,10 +393,8 @@ const SendMove = () => {
         })
         const streamPromise = fetchPromise.then((response) => response.text());
         streamPromise.then((data) => {
-                document.getElementById("getmove").style.display = 'block';
-                document.getElementById("sendMove").style.display = 'none';
-                // sessionStorage.setItem('checkMove', "no");
- 
+            document.getElementById("getmove").style.display = 'block';
+            document.getElementById("sendMove").style.display = 'none';
         })
     } else {
         ourLogin();
@@ -437,7 +435,6 @@ const mydrop = (ev) => {
     if (ev.dataTransfer !== null) {
         const data = ev.dataTransfer.getData("text/plain");
         ev.target.appendChild(document.getElementById(data));
-        // sessionStorage.setItem('checkMove', "yes");
         sessionStorage.setItem('curPosition', document.getElementById(data).parentElement.id)
     }
 }
