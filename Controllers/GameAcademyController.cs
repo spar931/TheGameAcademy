@@ -210,7 +210,7 @@ namespace GameAcademy.Controllers
             } else {
                 return Ok(playerInProgressGame);
             }
-            return Ok(go);
+            return Ok(existingWaitGame);
         }
 
         [Authorize(AuthenticationSchemes = "Authentication")]
