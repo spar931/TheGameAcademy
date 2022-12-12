@@ -2,7 +2,7 @@
 
 ## Description
 
-This repository contains an implementation of a single page web app centred around the game of chess.
+This repository contains an implementation of a single-page web app centred around the game of chess.
 
 ## Execution
 
